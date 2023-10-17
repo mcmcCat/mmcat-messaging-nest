@@ -1,21 +1,18 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, ValidateIf } from 'class-validator';
 
 export class CreateUserDto {
-  @IsNotEmpty()
   @ApiProperty({
     default: 'mmcat',
-    description: '创建用户姓名',
+    description: '创建用户名',
   })
   username: string;
 
-  @IsNotEmpty()
   @ApiProperty({
-    default: 'haoshuai',
+    default: '123456',
   })
   password: string;
 
-  @IsNotEmpty()
   @ApiProperty({
     default: 'https://pic.616pic.com/ys_b_img/00/38/71/FNFS7W4sQe.jpg',
   })

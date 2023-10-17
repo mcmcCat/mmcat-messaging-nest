@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-// import { UpdateUserDto } from './dto/update-user.dto';
 import { Repository, Like } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
@@ -9,11 +8,11 @@ export class UserService {
   constructor(
     @InjectRepository(User) private readonly user: Repository<User>,
   ) {}
-  create(createUserDto: CreateUserDto) {
+  create(body: CreateUserDto) {
     const data = new User();
-    data.username = createUserDto.username;
-    data.password = createUserDto.password;
-    data.avatar = createUserDto.avatar;
+    data.username = body.username;
+    data.password = body.password;
+    data.avatar = body.avatar;
     return this.user.save(data);
   }
 
@@ -28,11 +27,11 @@ export class UserService {
         username: Like(`%${username}%`),
       },
     });
+
     return res !== null ? res : null;
   }
 
   async uploadAvatar(username: string, avatar: string) {
-    console.log(username, avatar);
     /* 
       await repository.update({ firstName: "Timber" }, { firstName: "Rizzrak" });
       相当于执行 UPDATE user SET firstName = Rizzrak WHERE firstName = Timber 
