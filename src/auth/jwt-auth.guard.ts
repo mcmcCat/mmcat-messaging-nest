@@ -28,24 +28,25 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     const req = context.switchToHttp().getRequest();
     // const res = context.switchToHttp().getResponse();
 
-    // /**
-    //  * @如果白名单数组中存在路径
-    //  */
+    /**
+     * 如果是请求路由是白名单中的，则直接放行
+     */
     if (this.hasUrl(this.whiteList, req.url)) return true;
 
     try {
       // 获取请求头中的 token 字段
       const accessToken = req.get('Authorization');
       if (!accessToken) throw new UnauthorizedException('请先登录');
-      // 获取id
+
       const app = await NestFactory.create<NestExpressApplication>(AppModule);
       const authService = app.get(AuthService);
       const userService = app.get(UserService);
-      const user = await authService.verifyToken(accessToken);
-      console.log('tokeUserId ==>', user);
+
+      const tokenUserInfo = await authService.verifyToken(accessToken);
+      console.log('tokeUserId ==>', tokenUserInfo);
       
-      if (Object.keys(user).length > 0) {
-        const resData = await userService.findOne(user.username);
+      if (Object.keys(tokenUserInfo).length > 0) {
+        const resData = await userService.findOne(tokenUserInfo.username);
         if (resData[0].id) return true;
       }
     } catch (e) {

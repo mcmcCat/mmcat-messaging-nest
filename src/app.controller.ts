@@ -16,12 +16,12 @@ export class AppController {
   @ApiTags('JWT登录注册')
   @Post('auth/register')
   async AuthRegister(@Body() body: CreateUserDto) {
-    return await this.appService.register(body);
+    return await this.appService.authRegister(body);
   }
 
   @ApiTags('JWT登录注册')
   @Post('auth/login')
   async AuthLogin(@Body() body: LoginDTO) {
-    return await this.appService.login(body);
+    return await this.appService.authLogin(body);
   }
 }

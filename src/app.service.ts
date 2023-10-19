@@ -12,8 +12,8 @@ export class AppService {
     private authService: AuthService,
   ) {}
 
-  async register(body) {
-    // 拿到注册时的密码开始加密，hash密码字符串
+  async authRegister(body) {
+    // 拿到注册时的密码开始加密，hash加密字符串
     const hash = await bcryptjs.hashSync(body.password, 10);
 
     const isNotExist = await this.user.find({
@@ -25,7 +25,7 @@ export class AppService {
     if (!isNotExist.length) {
       const data = new User();
       data.username = body.username;
-      data.password = hash; // 将hash密码字符串插入到数据库中用户项的 password 中
+      data.password = hash; // 将hash加密字符串插入到数据库中用户项的 password 中
       data.avatar = body.avatar;
 
       await this.user.save(data);
@@ -41,7 +41,7 @@ export class AppService {
       };
     }
   }
-  async login(body) {
+  async authLogin(body) {
     const authResult = await this.authService.validateUser(
       body.username,
       body.password,

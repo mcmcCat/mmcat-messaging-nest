@@ -6,7 +6,7 @@ import { UserService } from './user/user.service';
 import { AuthService } from './auth/auth.service';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true }); // 第二个参数可用来配置跨域
   const options = new DocumentBuilder()
     .addBearerAuth()
     //开启swagger文档登录验证token

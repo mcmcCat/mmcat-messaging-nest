@@ -45,9 +45,11 @@ export class AuthService {
   async verifyToken(token: string): Promise<any> {
     try {
       if (!token) return false;
-      const tokenUserId = this.jwtService.verify(token.replace('Bearer ', ''));
+      const tokenUserInfo = this.jwtService.verify(
+        token.replace('Bearer ', ''),
+      );
 
-      return tokenUserId;
+      return tokenUserInfo;
     } catch (e) {
       console.log('token不合法 或者 1h的token过期！！！');
       return false;
