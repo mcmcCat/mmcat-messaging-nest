@@ -19,4 +19,7 @@ export class Message {
 
   @Column()
   receiver: string;
+
+  @Column()
+  sendTime: string;
 }

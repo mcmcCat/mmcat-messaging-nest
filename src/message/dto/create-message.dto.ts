@@ -24,4 +24,12 @@ export class CreateMessageDto {
     required: true,
   })
   receiver: string;
+
+  @ApiProperty({
+    default: 'xx:xx:xx',
+    description: '信息发送时间',
+    example: '20:13:05',
+    required: true,
+  })
+  sendTime: string;
 }

@@ -43,7 +43,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       const userService = app.get(UserService);
 
       const tokenUserInfo = await authService.verifyToken(accessToken);
-      console.log('tokeUserId ==>', tokenUserInfo);
       
       if (Object.keys(tokenUserInfo).length > 0) {
         const resData = await userService.findOne(tokenUserInfo.username);

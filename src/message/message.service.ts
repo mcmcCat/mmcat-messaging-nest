@@ -15,6 +15,7 @@ export class MessageService {
     data.content = body.content;
     data.sender = body.sender;
     data.receiver = body.receiver;
+    data.sendTime = body.sendTime;
 
     await this.message.save(data);
 
